@@ -4,12 +4,14 @@ micronaut:
 datasources:
   default:
     schema-generate: none
-    driver-class-name: oracle.jdbc.OracleDriver
-    username: ${jdbc-username}
-    password: ${jdbc-password}
-    url: ${jdbc-url}
     packages: org.com.example.entity
     dialect: oracle
+test-resources:
+  containers:
+    oracle:
+      image-name: gvenzl/oracle-free:latest-faststart
+      startup-timeout: 360s
+      database-name: test
 flyway:
   datasources:
     default:

@@ -1,13 +1,13 @@
 This is sample for Micronaut Data using Oracle Json Duality View.
 
 It uses test container with docker image "gvenzl/oracle-free:latest-faststart" by default and then
-datasource configuration is taken from the container before starting Micronaut application context.
+datasource configuration is taken from the container before starting Micronaut application context. To get started run the application:
 
-When app is ready, to create initial data, you can use this:
 ```
-curl -X POST http://localhost:8080/init
+./gradlew run
 ```
-And to list all students, use this:
+
+When app is ready, to list all students, use this:
 ```
 curl http://localhost:8080/students
 ```
