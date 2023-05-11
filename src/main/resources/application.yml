@@ -11,7 +11,7 @@ test-resources:
     oracle:
       image-name: gvenzl/oracle-free:latest-faststart
       startup-timeout: 360s
-      database-name: test
+      db-name: test
 flyway:
   datasources:
     default:

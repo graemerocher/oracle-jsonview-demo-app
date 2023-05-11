@@ -10,15 +10,12 @@ import com.example.micronaut.repository.ClassRepository;
 import com.example.micronaut.repository.StudentClassRepository;
 import com.example.micronaut.repository.StudentRepository;
 import com.example.micronaut.repository.TeacherRepository;
-import io.micronaut.context.ApplicationContext;
 import io.micronaut.context.event.StartupEvent;
 import io.micronaut.runtime.Micronaut;
 import io.micronaut.runtime.event.annotation.EventListener;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-//import org.testcontainers.containers.OracleContainer;
-//import org.testcontainers.utility.DockerImageName;
 
 @Singleton
 public class Application {
@@ -42,30 +39,7 @@ public class Application {
 
     public static void main(String[] args) {
         Micronaut.run(args);
-//        try(OracleContainer oracleContainer = new OracleContainer(DockerImageName.parse("gvenzl/oracle-free:latest-faststart")
-//                .asCompatibleSubstituteFor("gvenzl/oracle-xe"))
-//                .withDatabaseName("test")) {
-//            oracleContainer.start();
-//            initApp(oracleContainer);
-//        } catch (Exception e) {
-//            LOG.error("An error occurred", e);
-//            System.exit(1);
-//        }
     }
-
-//    /**
-//     * Initializes application context using datasource parameters from the underlying test container.
-//     *
-//     * @param oracleContainer the Oracle test container started before app init
-//     * @return the application context
-//     */
-//    private static ApplicationContext initApp(OracleContainer oracleContainer) {
-//        String username = oracleContainer.getUsername();
-//        String password = oracleContainer.getPassword();
-//        String url = oracleContainer.getJdbcUrl();
-//        return Micronaut.run(Application.class, "-jdbc-url=" + url,
-//                "-jdbc-username=" + username, "-jdbc-password=" + password);
-//    }
 
     @EventListener
     public void init(StartupEvent startupEvent) {
