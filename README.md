@@ -17,7 +17,7 @@ curl http://localhost:8080/students/1
 ```
 Find student by name:
 ```
-curl http://localhost:8080/students/student/Peter
+curl http://localhost:8080/students/student/Fred
 ```
 Create new student with classes
 ```
