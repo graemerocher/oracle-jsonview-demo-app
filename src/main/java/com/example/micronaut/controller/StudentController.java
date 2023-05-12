@@ -22,7 +22,7 @@ import io.micronaut.scheduling.annotation.ExecuteOn;
 
 @ExecuteOn(TaskExecutors.IO)
 @Controller("/students")
-public class StudentController {
+public final class StudentController {
 
     private final StudentViewRepository studentViewRepository;
     private final ClassRepository classRepository;
