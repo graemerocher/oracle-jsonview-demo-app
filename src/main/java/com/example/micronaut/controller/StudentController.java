@@ -11,19 +11,20 @@ import com.example.micronaut.entity.view.StudentView;
 import com.example.micronaut.repository.ClassRepository;
 import com.example.micronaut.repository.view.StudentViewRepository;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Delete;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Put;
+import io.micronaut.http.annotation.Status;
 
 @Controller("/students")
 public final class StudentController {
 
     private final StudentViewRepository studentViewRepository;
     private final ClassRepository classRepository;
-
 
     public StudentController(StudentViewRepository studentViewRepository, ClassRepository classRepository) {
         this.studentViewRepository = studentViewRepository;
@@ -62,6 +63,7 @@ public final class StudentController {
     }
 
     @Post("/")
+    @Status(HttpStatus.CREATED)
     public Optional<StudentView> create(@NonNull @Body CreateStudentViewDto createDto) {
         List<StudentScheduleView> studentScheduleViews = classRepository.findByNameIn(createDto.classes()).stream()
                 .map(c -> new StudentScheduleView(new StudentScheduleClassView(c))).toList();
@@ -75,6 +77,7 @@ public final class StudentController {
     }
 
     @Delete("/{id}")
+    @Status(HttpStatus.NO_CONTENT)
     void delete(Long id) {
         studentViewRepository.deleteById(id);
     }
