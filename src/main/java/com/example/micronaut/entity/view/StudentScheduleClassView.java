@@ -13,15 +13,15 @@ public record StudentScheduleClassView(
         String room,
         LocalTime time) {
 
-    public static StudentScheduleClassView fromClass(Class clazz) {
-        TeacherView teacherView = new TeacherView(
-                clazz.teacher().id(),
-                clazz.teacher().name()
-        );
-        return new StudentScheduleClassView(
+
+    public StudentScheduleClassView(Class clazz) {
+        this(
                 clazz.id(),
                 clazz.name(),
-                teacherView,
+                new TeacherView(
+                        clazz.teacher().id(),
+                        clazz.teacher().name()
+                ),
                 clazz.room(),
                 clazz.time()
         );

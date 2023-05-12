@@ -4,7 +4,7 @@ package com.example.micronaut.controller;
 import java.util.List;
 import java.util.Optional;
 
-import com.example.micronaut.domain.CreateStudentViewDto;
+import com.example.micronaut.dto.CreateStudentViewDto;
 import com.example.micronaut.entity.view.StudentScheduleClassView;
 import com.example.micronaut.entity.view.StudentScheduleView;
 import com.example.micronaut.entity.view.StudentView;
@@ -17,10 +17,7 @@ import io.micronaut.http.annotation.Delete;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Put;
-import io.micronaut.scheduling.TaskExecutors;
-import io.micronaut.scheduling.annotation.ExecuteOn;
 
-@ExecuteOn(TaskExecutors.IO)
 @Controller("/students")
 public final class StudentController {
 
@@ -67,10 +64,7 @@ public final class StudentController {
     @Post("/")
     public Optional<StudentView> create(@NonNull @Body CreateStudentViewDto createDto) {
         List<StudentScheduleView> studentScheduleViews = classRepository.findByNameIn(createDto.classes()).stream()
-                .map(c -> new StudentScheduleView(
-                        null,
-                        StudentScheduleClassView.fromClass(c)
-                )).toList();
+                .map(c -> new StudentScheduleView(new StudentScheduleClassView(c))).toList();
         StudentView studentView = new StudentView(
                 createDto.student(),
                 createDto.averageGrade(),

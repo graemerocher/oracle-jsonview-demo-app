@@ -1,6 +1,8 @@
 micronaut:
   application:
     name: OracleJsonDemo
+  server:
+    thread-selection: io
 datasources:
   default:
     schema-generate: none

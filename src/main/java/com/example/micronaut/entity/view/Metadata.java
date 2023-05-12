@@ -5,5 +5,5 @@ import io.micronaut.serde.annotation.Serdeable;
 @Serdeable
 public record Metadata(
         String etag,
-        String asof ) {
+        String asof) {
 }
