@@ -48,17 +48,17 @@ public final class StudentController {
 
     @Put("/{id}/average_grade/{averageGrade}")
     public Optional<StudentView> updateAverageGrade(Long id, @NonNull Double averageGrade) {
-        return studentViewRepository.findById(id).map(studentView -> {
+        return studentViewRepository.findById(id).flatMap(studentView -> {
             studentViewRepository.updateAverageGrade(id, averageGrade);
-            return studentView;
+            return studentViewRepository.findById(id);
         });
     }
 
     @Put("/{id}/student/{student}")
     public Optional<StudentView> updateStudent(Long id, @NonNull String student) {
-        return studentViewRepository.findById(id).map(studentView -> {
+        return studentViewRepository.findById(id).flatMap(studentView -> {
             studentViewRepository.updateStudentByStudentId(id, student);
-            return studentView;
+            return studentViewRepository.findById(id);
         });
     }
 

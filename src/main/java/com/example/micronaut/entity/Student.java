@@ -5,7 +5,7 @@ import io.micronaut.data.annotation.GeneratedValue;
 import io.micronaut.data.annotation.Id;
 import io.micronaut.data.annotation.MappedEntity;
 import io.micronaut.data.annotation.Relation;
-import io.micronaut.data.jdbc.annotation.JoinTable;
+import io.micronaut.data.annotation.sql.JoinTable;
 
 import java.util.Collections;
 import java.util.List;
