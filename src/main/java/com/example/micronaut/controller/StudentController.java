@@ -5,10 +5,13 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.micronaut.dto.CreateStudentViewDto;
+import com.example.micronaut.entity.Class;
+import com.example.micronaut.entity.Student;
 import com.example.micronaut.entity.view.StudentScheduleClassView;
 import com.example.micronaut.entity.view.StudentScheduleView;
 import com.example.micronaut.entity.view.StudentView;
 import com.example.micronaut.repository.ClassRepository;
+import com.example.micronaut.repository.StudentRepository;
 import com.example.micronaut.repository.view.StudentViewRepository;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.http.HttpStatus;
@@ -26,9 +29,12 @@ public final class StudentController {
     private final StudentViewRepository studentViewRepository;
     private final ClassRepository classRepository;
 
-    public StudentController(StudentViewRepository studentViewRepository, ClassRepository classRepository) {
+    private final StudentRepository studentRepository;
+
+    public StudentController(StudentViewRepository studentViewRepository, ClassRepository classRepository, StudentRepository studentRepository) {
         this.studentViewRepository = studentViewRepository;
         this.classRepository = classRepository;
+        this.studentRepository = studentRepository;
     }
 
     @Get("/{id}")
@@ -65,14 +71,22 @@ public final class StudentController {
     @Post("/")
     @Status(HttpStatus.CREATED)
     public Optional<StudentView> create(@NonNull @Body CreateStudentViewDto createDto) {
-        List<StudentScheduleView> studentScheduleViews = classRepository.findByNameIn(createDto.classes()).stream()
-                .map(c -> new StudentScheduleView(new StudentScheduleClassView(c))).toList();
-        StudentView studentView = new StudentView(
+        List<Class> classes = classRepository.findByNameIn(createDto.classes());
+        Student entity = this.studentRepository.save(new Student(
+                null,
                 createDto.student(),
                 createDto.averageGrade(),
-                studentScheduleViews
+                classes
+        ));
+        List<StudentScheduleView> studentScheduleViews = classes.stream()
+                .map(c -> new StudentScheduleView(new StudentScheduleClassView(c))).toList();
+        StudentView studentView = new StudentView(
+                entity.id(),
+                createDto.student(),
+                createDto.averageGrade(),
+                studentScheduleViews,
+                null
         );
-        studentView = studentViewRepository.save(studentView);
         return Optional.of(studentView);
     }
 
