@@ -18,7 +18,7 @@ public record Student(
     Long id,
     String name,
     Double averageGrade,
-    @JoinTable(name = "STUDENT_CLASSES")
+    @JoinTable(name = "STUDENT_CLASS")
     @Relation(Relation.Kind.MANY_TO_MANY)
     List<Class> classes) {
 

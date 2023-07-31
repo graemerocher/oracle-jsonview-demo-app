@@ -8,7 +8,7 @@ import io.micronaut.data.annotation.MappedEntity;
 import io.micronaut.data.annotation.MappedProperty;
 import io.micronaut.data.annotation.Relation;
 
-@MappedEntity("STUDENT_CLASSES")
+@MappedEntity("STUDENT_CLASS")
 public record StudentClass(
     @Id
     @GeneratedValue(GeneratedValue.Type.AUTO)
