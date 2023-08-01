@@ -13,10 +13,10 @@ public record StudentScheduleView(
         @Id
         Long id,
         @JsonProperty("course")
-        StudentScheduleCourseView course) {
+        CourseView course) {
 
-        public StudentScheduleView(StudentScheduleCourseView scheduleCourseView) {
-                this(null, scheduleCourseView);
+        public StudentScheduleView(CourseView courseView) {
+                this(null, courseView);
         }
         @Override
         public String toString() {

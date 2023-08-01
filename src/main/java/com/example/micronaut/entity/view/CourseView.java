@@ -6,7 +6,7 @@ import io.micronaut.serde.annotation.Serdeable;
 import java.time.LocalTime;
 
 @Serdeable
-public record StudentScheduleCourseView(
+public record CourseView(
         Long courseId,
         String name,
         TeacherView teacher,
@@ -14,7 +14,7 @@ public record StudentScheduleCourseView(
         LocalTime time) {
 
 
-    public StudentScheduleCourseView(Course course) {
+    public CourseView(Course course) {
         this(
                 course.id(),
                 course.name(),
@@ -29,7 +29,7 @@ public record StudentScheduleCourseView(
 
     @Override
     public String toString() {
-        return "StudentScheduleCourse{" +
+        return "Course{" +
                 "courseId=" + courseId +
                 ", teacher=" + teacher +
                 ", room='" + room + '\'' +
