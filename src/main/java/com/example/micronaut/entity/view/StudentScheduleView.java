@@ -21,7 +21,7 @@ public record StudentScheduleView(
         @Override
         public String toString() {
                 return "StudentSchedule{" +
-                        "id=" + id +
+                        "Id=" + id +
                         ", course=" + course +
                         '}';
         }

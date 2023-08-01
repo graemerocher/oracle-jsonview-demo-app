@@ -23,7 +23,7 @@ import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Put;
 import io.micronaut.http.annotation.Status;
 
-@Controller("/students")
+@Controller("/students") // <1>
 public final class StudentController {
 
     private final StudentViewRepository studentViewRepository;
@@ -31,28 +31,28 @@ public final class StudentController {
 
     private final StudentRepository studentRepository;
 
-    public StudentController(StudentViewRepository studentViewRepository, CourseRepository courseRepository, StudentRepository studentRepository) {
+    public StudentController(StudentViewRepository studentViewRepository, CourseRepository courseRepository, StudentRepository studentRepository) { // <2>
         this.studentViewRepository = studentViewRepository;
         this.courseRepository = courseRepository;
         this.studentRepository = studentRepository;
     }
 
-    @Get("/{id}")
+    @Get("/{id}") // <3>
     public Optional<StudentView> findById(Long id) {
         return studentViewRepository.findById(id);
     }
 
-    @Get("/")
+    @Get("/") // <4>
     public Iterable<StudentView> findAll() {
         return studentViewRepository.findAll();
     }
 
-    @Get("/student/{student}")
+    @Get("/student/{student}") // <5>
     public Optional<StudentView> findByStudent(@NonNull String student) {
         return studentViewRepository.findByStudent(student);
     }
 
-    @Put("/{id}/average_grade/{averageGrade}")
+    @Put("/{id}/average_grade/{averageGrade}") // <6>
     public Optional<StudentView> updateAverageGrade(Long id, @NonNull Double averageGrade) {
         return studentViewRepository.findById(id).flatMap(studentView -> {
             studentViewRepository.updateAverageGrade(id, averageGrade);
@@ -60,7 +60,7 @@ public final class StudentController {
         });
     }
 
-    @Put("/{id}/student/{student}")
+    @Put("/{id}/student/{student}") // <7>
     public Optional<StudentView> updateStudent(Long id, @NonNull String student) {
         return studentViewRepository.findById(id).flatMap(studentView -> {
             studentViewRepository.updateStudentByStudentId(id, student);
@@ -68,7 +68,7 @@ public final class StudentController {
         });
     }
 
-    @Post("/")
+    @Post("/") // <8>
     @Status(HttpStatus.CREATED)
     public Optional<StudentView> create(@NonNull @Body CreateStudentViewDto createDto) {
         List<Course> courses = courseRepository.findByNameIn(createDto.courses());
@@ -90,13 +90,13 @@ public final class StudentController {
         return Optional.of(studentView);
     }
 
-    @Delete("/{id}")
+    @Delete("/{id}") // <9>
     @Status(HttpStatus.NO_CONTENT)
     void delete(Long id) {
         studentViewRepository.deleteById(id);
     }
 
-    @Get("/max_average_grade")
+    @Get("/max_average_grade") // <10>
     Optional<Double> findMaxAverageGrade() {
         return studentViewRepository.findMaxAverageGrade();
     }

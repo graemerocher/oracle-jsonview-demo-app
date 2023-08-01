@@ -7,7 +7,7 @@ import java.time.LocalTime;
 
 @Serdeable
 public record StudentScheduleCourseView(
-        Long courseID,
+        Long courseId,
         String name,
         TeacherView teacher,
         String room,
@@ -30,7 +30,7 @@ public record StudentScheduleCourseView(
     @Override
     public String toString() {
         return "StudentScheduleCourse{" +
-                "courseID=" + courseID +
+                "courseId=" + courseId +
                 ", teacher=" + teacher +
                 ", room='" + room + '\'' +
                 ", time=" + time +
