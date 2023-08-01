@@ -33,10 +33,10 @@ Test the application by using curl to call the API.
     curl http://localhost:8080/students/3
     ```
 
-4. Create a new student with classes (and view that student's schedule):
+4. Create a new student with courses (and view that student's schedule):
 
     ```bash
-    curl -d '{"student":"Sandro", "averageGrade":8.9, "classes": ["Math", "English"]}' \
+    curl -d '{"student":"Sandro", "averageGrade":8.9, "courses": ["Math", "English"]}' \
     -H "Content-Type: application/json" \
     -X POST http://localhost:8080/students
     ```

@@ -10,7 +10,7 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalTime;
 
 @MappedEntity
-public record Class(
+public record Course(
     @Id
     @GeneratedValue(GeneratedValue.Type.AUTO)
     @Nullable
@@ -25,7 +25,7 @@ public record Class(
     @Relation(Relation.Kind.MANY_TO_ONE)
     Teacher teacher) {
 
-    public Class(String name, String room, LocalTime time, @Nullable Teacher teacher) {
+    public Course(String name, String room, LocalTime time, @Nullable Teacher teacher) {
         this(null, name, room, time, teacher);
     }
 }

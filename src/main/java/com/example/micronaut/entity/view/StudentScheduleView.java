@@ -12,17 +12,17 @@ public record StudentScheduleView(
         @GeneratedValue
         @Id
         Long id,
-        @JsonProperty("class")
-        StudentScheduleClassView clazz) {
+        @JsonProperty("course")
+        StudentScheduleCourseView course) {
 
-        public StudentScheduleView(StudentScheduleClassView scheduleClassView) {
-                this(null, scheduleClassView);
+        public StudentScheduleView(StudentScheduleCourseView scheduleCourseView) {
+                this(null, scheduleCourseView);
         }
         @Override
         public String toString() {
                 return "StudentSchedule{" +
                         "id=" + id +
-                        ", class=" + clazz +
+                        ", course=" + course +
                         '}';
         }
 }

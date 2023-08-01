@@ -8,8 +8,8 @@ import io.micronaut.data.annotation.MappedEntity;
 import io.micronaut.data.annotation.MappedProperty;
 import io.micronaut.data.annotation.Relation;
 
-@MappedEntity("STUDENT_CLASS")
-public record StudentClass(
+@MappedEntity("STUDENT_COURSE")
+public record StudentCourse(
     @Id
     @GeneratedValue(GeneratedValue.Type.AUTO)
     @Nullable
@@ -17,10 +17,10 @@ public record StudentClass(
     @Relation(Relation.Kind.MANY_TO_ONE)
     Student student,
     @Relation(Relation.Kind.MANY_TO_ONE)
-    @MappedProperty("CLASS_ID")
-    Class clazz) {
+    @MappedProperty("COURSE_ID")
+    Course course) {
 
-    public StudentClass(Student student, Class clazz) {
-        this(null, student, clazz);
+    public StudentCourse(Student student, Course course) {
+        this(null, student, course);
     }
 }

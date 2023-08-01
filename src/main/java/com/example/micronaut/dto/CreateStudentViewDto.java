@@ -8,5 +8,5 @@ import java.util.List;
 public record CreateStudentViewDto(
         String student,
         Double averageGrade,
-        List<String> classes
+        List<String> courses
 ) {}

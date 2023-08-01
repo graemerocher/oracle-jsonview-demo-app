@@ -11,6 +11,6 @@ import java.util.Optional;
 @JdbcRepository(dialect = Dialect.ORACLE)
 public interface StudentRepository extends PageableRepository<Student, Long> {
 
-    @Join("classes")
+    @Join("courses")
     Optional<Student> findByName(String name);
 }
