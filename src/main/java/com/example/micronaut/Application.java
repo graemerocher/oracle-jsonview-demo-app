@@ -17,20 +17,21 @@ import jakarta.inject.Singleton;
 
 @Singleton
 public class Application {
-    private final StudentRepository studentRepository;
+
     private final ClassRepository classRepository;
-    private final StudentClassRepository studentClassRepository;
+    private final StudentRepository studentRepository;
     private final TeacherRepository teacherRepository;
+    private final StudentClassRepository studentClassRepository;
 
     public Application(
-            StudentRepository studentRepository,
             ClassRepository classRepository,
-            StudentClassRepository studentClassRepository,
-            TeacherRepository teacherRepository) {
-        this.studentRepository = studentRepository;
+            StudentRepository studentRepository,
+            TeacherRepository teacherRepository,
+            StudentClassRepository studentClassRepository) {
         this.classRepository = classRepository;
-        this.studentClassRepository = studentClassRepository;
+        this.studentRepository = studentRepository;
         this.teacherRepository = teacherRepository;
+        this.studentClassRepository = studentClassRepository;
     }
 
     public static void main(String[] args) {
@@ -39,23 +40,28 @@ public class Application {
 
     @EventListener
     public void init(StartupEvent startupEvent) {
-        studentClassRepository.deleteAll();
+        // Clear the existing tables
         classRepository.deleteAll();
-        teacherRepository.deleteAll();
         studentRepository.deleteAll();
+        teacherRepository.deleteAll();
+        studentClassRepository.deleteAll();
 
-        Teacher teacherOlya = teacherRepository.save(new Teacher("Ms. Olya"));
-        Teacher teacherGraeme = teacherRepository.save(new Teacher("Mr. Graeme"));
-        Teacher teacherYevhen = teacherRepository.save(new Teacher("Prof. Yevhen"));
-
+        // Use relational operations to insert three new rows in the STUDENT table
         Student dennis = studentRepository.save(new Student("Denis", 8.5));
         Student jill = studentRepository.save(new Student("Jill", 7.2));
         Student devjani = studentRepository.save(new Student("Devjani", 9.1));
 
+        // Use relational operations to insert three new rows in the TEACHER table
+        Teacher teacherOlya = teacherRepository.save(new Teacher("Ms. Olya"));
+        Teacher teacherGraeme = teacherRepository.save(new Teacher("Mr. Graeme"));
+        Teacher teacherYevhen = teacherRepository.save(new Teacher("Prof. Yevhen"));
+
+        // Use relational operations to insert three new rows in the CLASS table
         Class math = classRepository.save(new Class("Math", "A101", LocalTime.of(10, 00), teacherGraeme));
         Class english = classRepository.save(new Class("English", "A102", LocalTime.of(11, 00), teacherYevhen));
         Class history = classRepository.save(new Class("History", "A103", LocalTime.of(12, 00), teacherOlya));
 
+        // Use relational operations to inset six new rows into the STUDENT_CLASS table
         studentClassRepository.save(new StudentClass(dennis, math));
         studentClassRepository.save(new StudentClass(jill, math));
         studentClassRepository.save(new StudentClass(devjani, math));
