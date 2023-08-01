@@ -1,16 +1,14 @@
 
 package com.example.micronaut.controller;
 
-import java.util.List;
 import java.util.Optional;
 
-import com.example.micronaut.dto.CreateStudentViewDto;
-import com.example.micronaut.entity.Course;
+import com.example.micronaut.dto.CreateStudentDto;
 import com.example.micronaut.entity.Student;
-import com.example.micronaut.entity.view.StudentScheduleCourseView;
-import com.example.micronaut.entity.view.StudentScheduleView;
+import com.example.micronaut.entity.StudentCourse;
 import com.example.micronaut.entity.view.StudentView;
 import com.example.micronaut.repository.CourseRepository;
+import com.example.micronaut.repository.StudentCourseRepository;
 import com.example.micronaut.repository.StudentRepository;
 import com.example.micronaut.repository.view.StudentViewRepository;
 import io.micronaut.core.annotation.NonNull;
@@ -26,15 +24,16 @@ import io.micronaut.http.annotation.Status;
 @Controller("/students") // <1>
 public final class StudentController {
 
-    private final StudentViewRepository studentViewRepository;
     private final CourseRepository courseRepository;
-
     private final StudentRepository studentRepository;
+    private final StudentCourseRepository studentCourseRepository;
+    private final StudentViewRepository studentViewRepository;
 
-    public StudentController(StudentViewRepository studentViewRepository, CourseRepository courseRepository, StudentRepository studentRepository) { // <2>
-        this.studentViewRepository = studentViewRepository;
+    public StudentController(CourseRepository courseRepository, StudentRepository studentRepository, StudentCourseRepository studentCourseRepository, StudentViewRepository studentViewRepository) { // <2>
         this.courseRepository = courseRepository;
         this.studentRepository = studentRepository;
+        this.studentCourseRepository = studentCourseRepository;
+        this.studentViewRepository = studentViewRepository;
     }
 
     @Get("/{id}") // <3>
@@ -69,25 +68,14 @@ public final class StudentController {
     }
 
     @Post("/") // <8>
-    @Status(HttpStatus.CREATED)
-    public Optional<StudentView> create(@NonNull @Body CreateStudentViewDto createDto) {
-        List<Course> courses = courseRepository.findByNameIn(createDto.courses());
-        Student entity = this.studentRepository.save(new Student(
-                null,
-                createDto.student(),
-                createDto.averageGrade(),
-                courses
-        ));
-        List<StudentScheduleView> studentScheduleViews = courses.stream()
-                .map(c -> new StudentScheduleView(new StudentScheduleCourseView(c))).toList();
-        StudentView studentView = new StudentView(
-                entity.id(),
-                createDto.student(),
-                createDto.averageGrade(),
-                studentScheduleViews,
-                null
-        );
-        return Optional.of(studentView);
+    @Status(HttpStatus.CREATED) 
+    public Optional<StudentView> create(@NonNull @Body CreateStudentDto createDto) {
+      // Use a relational operation to insert a new row in the STUDENT table
+      Student student = studentRepository.save(new Student(createDto.student(), createDto.averageGrade()));
+      // For each of the courses in createDto parameter, insert a row in the STUDENT_COURSE table
+      courseRepository.findByNameIn(createDto.courses()).stream()
+          .forEach(course -> studentCourseRepository.save(new StudentCourse(student, course)));
+      return studentViewRepository.findByStudent(student.name());
     }
 
     @Delete("/{id}") // <9>
