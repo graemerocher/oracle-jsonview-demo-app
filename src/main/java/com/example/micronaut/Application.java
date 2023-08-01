@@ -44,23 +44,24 @@ public class Application {
         teacherRepository.deleteAll();
         studentRepository.deleteAll();
 
-        Teacher teacherAnna = teacherRepository.save(new Teacher("Mrs. Anna"));
-        Teacher teacherJeff = teacherRepository.save(new Teacher("Mr. Jeff"));
+        Teacher teacherOlya = teacherRepository.save(new Teacher("Ms. Olya"));
+        Teacher teacherGraeme = teacherRepository.save(new Teacher("Mr. Graeme"));
+        Teacher teacherYevhen = teacherRepository.save(new Teacher("Prof. Yevhen"));
 
-        Student denis = studentRepository.save(new Student("Denis", 8.5));
-        Student josh = studentRepository.save(new Student("Josh", 7.2));
-        Student fred = studentRepository.save(new Student("Fred", 9.1));
+        Student dennis = studentRepository.save(new Student("Denis", 8.5));
+        Student jill = studentRepository.save(new Student("Jill", 7.2));
+        Student devjani = studentRepository.save(new Student("Devjani", 9.1));
 
-        Class math = classRepository.save(new Class("Math", "A101", LocalTime.of(10, 00), teacherAnna));
-        Class english = classRepository.save(new Class("English", "A102", LocalTime.of(11, 00), teacherJeff));
-        Class german = classRepository.save(new Class("German", "A103", LocalTime.of(12, 00), teacherAnna));
+        Class math = classRepository.save(new Class("Math", "A101", LocalTime.of(10, 00), teacherGraeme));
+        Class english = classRepository.save(new Class("English", "A102", LocalTime.of(11, 00), teacherYevhen));
+        Class history = classRepository.save(new Class("History", "A103", LocalTime.of(12, 00), teacherOlya));
 
-        studentClassRepository.save(new StudentClass(denis, math));
-        studentClassRepository.save(new StudentClass(josh, math));
-        studentClassRepository.save(new StudentClass(fred, math));
+        studentClassRepository.save(new StudentClass(dennis, math));
+        studentClassRepository.save(new StudentClass(jill, math));
+        studentClassRepository.save(new StudentClass(devjani, math));
 
-        studentClassRepository.save(new StudentClass(denis, german));
-        studentClassRepository.save(new StudentClass(josh, english));
-        studentClassRepository.save(new StudentClass(fred, german));
+        studentClassRepository.save(new StudentClass(dennis, history));
+        studentClassRepository.save(new StudentClass(jill, english));
+        studentClassRepository.save(new StudentClass(devjani, history));
     }
 }
