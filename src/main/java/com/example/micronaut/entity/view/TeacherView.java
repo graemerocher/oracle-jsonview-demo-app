@@ -4,13 +4,13 @@ import io.micronaut.serde.annotation.Serdeable;
 
 @Serdeable
 public record TeacherView(
-        Long teachID,
+        Long teacherId,
         String teacher ) {
 
     @Override
     public String toString() {
         return "Teacher{" +
-                "teachID=" + teachID +
+                "teacherId=" + teacherId +
                 ", teacher='" + teacher + '\'' +
                 '}';
     }

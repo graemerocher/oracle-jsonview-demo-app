@@ -1,7 +1,7 @@
 plugins {
-    id("com.github.johnrengelman.shadow") version "8.1.1"
-    id("io.micronaut.application") version "4.0.1"
-    id("io.micronaut.test-resources") version "4.0.1"
+    id "com.github.johnrengelman.shadow" version "8.1.1"
+    id "io.micronaut.application" version "4.0.1"
+    id "io.micronaut.test-resources" version "4.0.1"
 }
 
 version = "0.1"
@@ -13,8 +13,8 @@ repositories {
 
 dependencies {
     annotationProcessor "io.micronaut.data:micronaut-data-processor"
-    annotationProcessor("io.micronaut:micronaut-http-validation")
-    implementation("io.micronaut:micronaut-http-client")
+    annotationProcessor "io.micronaut:micronaut-http-validation"
+    implementation "io.micronaut:micronaut-http-client"
     implementation "io.micronaut.data:micronaut-data-jdbc"
     implementation "io.micronaut.validation:micronaut-validation"
     implementation "io.micronaut.serde:micronaut-serde-oracle-jdbc-json"

@@ -1,36 +1,36 @@
 package com.example.micronaut.entity.view;
 
-import com.example.micronaut.entity.Class;
+import com.example.micronaut.entity.Course;
 import io.micronaut.serde.annotation.Serdeable;
 
 import java.time.LocalTime;
 
 @Serdeable
-public record StudentScheduleClassView(
-        Long classID,
+public record CourseView(
+        Long courseId,
         String name,
         TeacherView teacher,
         String room,
         LocalTime time) {
 
 
-    public StudentScheduleClassView(Class clazz) {
+    public CourseView(Course course) {
         this(
-                clazz.id(),
-                clazz.name(),
+                course.id(),
+                course.name(),
                 new TeacherView(
-                        clazz.teacher().id(),
-                        clazz.teacher().name()
+                        course.teacher().id(),
+                        course.teacher().name()
                 ),
-                clazz.room(),
-                clazz.time()
+                course.room(),
+                course.time()
         );
     }
 
     @Override
     public String toString() {
-        return "StudentScheduleClass{" +
-                "classID=" + classID +
+        return "Course{" +
+                "courseId=" + courseId +
                 ", teacher=" + teacher +
                 ", room='" + room + '\'' +
                 ", time=" + time +

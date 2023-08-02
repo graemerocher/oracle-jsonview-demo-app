@@ -5,8 +5,8 @@ import io.micronaut.serde.annotation.Serdeable;
 import java.util.List;
 
 @Serdeable
-public record CreateStudentViewDto(
+public record CreateStudentDto(
         String student,
         Double averageGrade,
-        List<String> classes
+        List<String> courses
 ) {}
