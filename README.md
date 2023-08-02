@@ -21,13 +21,13 @@ Test the application by using curl to call the API.
     curl http://localhost:8080/students
     ```
 
-2. Retrieve a student's schedule by student name:
+2. Retrieve a schedule by student name:
 
     ```bash
     curl http://localhost:8080/students/student/Jill
     ```
 
-3. Retrieve a student's schedule by student id:
+3. Retrieve a schedule by student id:
 
     ```bash
     curl http://localhost:8080/students/3
@@ -59,7 +59,7 @@ Test the application by using curl to call the API.
     curl -X PUT http://localhost:8080/students/1/student/Dennis
     ```
 
-8. Delete a student by student id and retrieve the new maximum average grade:
+8. Delete a student by student id and retrieve the new maximum average grade (to confirm deletion):
 
     ```bash
     curl -X DELETE http://localhost:8080/students/1

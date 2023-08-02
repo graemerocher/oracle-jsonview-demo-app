@@ -53,6 +53,7 @@ public final class StudentController {
 
     @Put("/{id}/average_grade/{averageGrade}") // <6>
     public Optional<StudentView> updateAverageGrade(Long id, @NonNull Double averageGrade) {
+        //Use a duality view operation to update a student's average grade
         return studentViewRepository.findById(id).flatMap(studentView -> {
             studentViewRepository.updateAverageGrade(id, averageGrade);
             return studentViewRepository.findById(id);
@@ -61,6 +62,7 @@ public final class StudentController {
 
     @Put("/{id}/student/{student}") // <7>
     public Optional<StudentView> updateStudent(Long id, @NonNull String student) {
+        //Use a duality view operation to update a student's name
         return studentViewRepository.findById(id).flatMap(studentView -> {
             studentViewRepository.updateStudentByStudentId(id, student);
             return studentViewRepository.findById(id);
@@ -81,6 +83,7 @@ public final class StudentController {
     @Delete("/{id}") // <9>
     @Status(HttpStatus.NO_CONTENT)
     void delete(Long id) {
+        //Use a duality view operation to delete a student
         studentViewRepository.deleteById(id);
     }
 
