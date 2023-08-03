@@ -36,19 +36,19 @@ public final class StudentController {
         this.studentViewRepository = studentViewRepository;
     }
 
-    @Get("/{id}") // <3>
-    public Optional<StudentView> findById(Long id) {
-        return studentViewRepository.findById(id);
-    }
-
-    @Get("/") // <4>
+    @Get("/") // <3>
     public Iterable<StudentView> findAll() {
         return studentViewRepository.findAll();
     }
 
-    @Get("/student/{student}") // <5>
+    @Get("/student/{student}") // <4>
     public Optional<StudentView> findByStudent(@NonNull String student) {
         return studentViewRepository.findByStudent(student);
+    }
+
+    @Get("/{id}") // <5>
+    public Optional<StudentView> findById(Long id) {
+        return studentViewRepository.findById(id);
     }
 
     @Put("/{id}/average_grade/{averageGrade}") // <6>
